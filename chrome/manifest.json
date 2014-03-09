@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+
+  "name": "Bitcointa.lk",
+  "description": "Sync posts, subscribed threads, ignored users, etc.; no personal information (such as your PMs) is accessible to this extension.",
+  "version": "1.2",
+
+  "permissions": [
+    "cookies",
+    "https://bitcointa.lk/",
+    "https://bitcointalk.org/"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["https://bitcointa.lk/threads/*"],
+      "js": ["jquery.js", "initialize_quickreply.js"]
+    },
+    {
+      "matches": ["https://bitcointa.lk/*"],
+      "js": ["jquery.js", "check_unread_pm.js"]
+    },
+    {
+      "matches": ["https://bitcointa.lk/pages/browser-extension/"],
+      "js": ["jquery.js", "import_actions.js"]
+    },
+    {
+      "matches": ["https://bitcointa.lk/threads/*/add-reply"],
+      "js": ["jquery.js", "initialize_newreply.js"]
+    },
+    {
+      "matches": ["https://bitcointa.lk/forums/*/create-thread"],
+      "js": ["jquery.js", "initialize_newthread.js"]
+    }
+  ],
+  
+  "externally_connectable": {
+     "matches": ["https://bitcointa.lk/*"]
+  },
+  
+  "background": {
+    "scripts": ["jquery.js", "background.js"]
+  }
+}
