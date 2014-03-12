@@ -103,6 +103,8 @@ function get_auth(data) {
             run_action(data, res[1]);
         else
             is_running = false;
+    }).fail(function() {
+        is_running = false;
     });
 }
 
@@ -170,6 +172,7 @@ function run_action(data, csfr) {
             contentType: false,
             processData: false,
             type: 'POST',
+            error: function() { is_running = false; },
             success: function(html) {
                 
                 if(html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
@@ -205,6 +208,7 @@ function run_action(data, csfr) {
             contentType: false,
             processData: false,
             type: 'POST',
+            error: function() { is_running = false; },
             success: function(html) {
                 
                 if(html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
@@ -237,6 +241,7 @@ function run_action(data, csfr) {
             contentType: false,
             processData: false,
             type: 'POST',
+            error: function() { is_running = false; },
             success: function(html){
                 
                 if(html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
@@ -254,6 +259,8 @@ function run_action(data, csfr) {
     if(data.action == 'post_delete') {
         $.get( 'https://bitcointalk.org/index.php?action=deletemsg;topic='+data.thread_id+'.0;msg='+data.remote_id+';sesc='+csfr, function( html ) {
             report_status(data.id, 'ok');
+        }).fail(function() {
+            is_running = false;
         });
     }
 }
@@ -265,7 +272,9 @@ function report_status(id, status)
         function( data ) {
             if(data != false)
                 is_running = false;
-    }, 'json');
+    }, 'json').fail(function() {
+        is_running = false;
+    });
 }
 
 function check_unread_pm(html) {

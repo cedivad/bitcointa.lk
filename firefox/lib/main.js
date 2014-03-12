@@ -130,6 +130,10 @@ function get_auth(data) {
   Request({
       url: "https://bitcointalk.org/",
       onComplete: function (html) {
+        if(html.status != 200) {
+            is_running = false;
+            return;
+        }
         html = html.text;
         check_unread_pm(html);
         var res = html.match(/smf_setThemeOption\("collapse_header", mode \? 1 : 0, null, "([0-9a-zA-Z]+)"/i);
@@ -239,6 +243,10 @@ function run_action(data, csfr) {
           url: "https://bitcointalk.org/index.php?action=post2;start=8690123;board=" + data.forum_id,
           content: fd,
           onComplete: function (html) {
+              if(html.status != 200) {
+                  report_status(data.id, 'delay');
+                  return;
+              }
               html = html.text;
               if (html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
                     if (html.indexOf('The last posting from your IP was less than') > 1) {
@@ -272,6 +280,10 @@ function run_action(data, csfr) {
           url: "https://bitcointalk.org/index.php?action=post2;start=0;board=" + data.forum_id,
           content: fd,
           onComplete: function (html) {
+              if(html.status != 200) {
+                  report_status(data.id, 'delay');
+                  return;
+              }
               html = html.text;
               if (html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
                     if (html.indexOf('The last posting from your IP was less than') > 1)
@@ -301,6 +313,10 @@ function run_action(data, csfr) {
           url: "https://bitcointalk.org/index.php?action=post2;start=0;msg=" + data.remote_id + ";sesc=" + csfr + ";board=" + data.forum_id,
           content: fd,
           onComplete: function (html) {
+              if(html.status != 200) {
+                  report_status(data.id, 'delay');
+                  return;
+              }
               html = html.text;
               if (html.indexOf('An Error Has Occurred') > 1 && html.indexOf('Please try again later') > 1)
                     report_status(data.id, 'stop');
@@ -316,6 +332,10 @@ function run_action(data, csfr) {
         Request({
           url: 'https://bitcointalk.org/index.php?action=deletemsg;topic=' + data.thread_id + '.0;msg=' + data.remote_id + ';sesc=' + csfr,
           onComplete: function (html) {
+              if(html.status != 200) {
+                  report_status(data.id, 'delay');
+                  return;
+              }
               report_status(data.id, 'ok');
           }
       }).get();
