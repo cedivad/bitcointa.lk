@@ -42,6 +42,11 @@ setInterval(function() {
         $.post( "https://bitcointa.lk/sync-action", 
             {'_xfToken': JSON.parse(localStorage['csrf'])}, 
             function( data ) {
+                if(data.indexOf('Security error occurred') > 1) {
+                    localStorage['actionCount'] = JSON.stringify(0);
+                    return;
+                }
+                data = JSON.parse(data);
                 if(data == false) return;
                 if(typeof data.action_count !== 'undefined' && data.action_count == 0) {
                     localStorage['actionCount'] = JSON.stringify(0);
@@ -50,7 +55,7 @@ setInterval(function() {
                 
                 is_running = true;
                 get_auth(data);
-        }, 'json');
+        });
     }
 }, 1000);
 

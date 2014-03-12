@@ -57,11 +57,18 @@ tmr.setInterval(function () {
     if (JSON.parse(ss.storage.actionCount) != 0) {
         if (is_running) return;
         Request({
-              url: "https://bitcointa.lk/sync-action",
-              content: {'_xfToken': JSON.parse(ss.storage.csrf)},
-              onComplete: function (data) {
-              data = JSON.parse(data.text);
-                if (data == false) return;
+            url: "https://bitcointa.lk/sync-action",
+            content: {'_xfToken': JSON.parse(ss.storage.csrf)},
+            onComplete: function (data) {
+                data = data.text;
+                if(data.indexOf('Security error occurred') > 1) {
+                    ss.storage.actionCount = JSON.stringify(0);
+                    return;
+                }
+                
+                data = JSON.parse(data);
+                if(data == false) return;
+                
                 if (typeof data.action_count !== 'undefined' && data.action_count == 0) {
                     ss.storage.actionCount = JSON.stringify(0);
                     return;
