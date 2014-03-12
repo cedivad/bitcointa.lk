@@ -1,9 +1,9 @@
 {
-  "name": "bitcointalk",
+  "name": "Bitcointa.lk",
   "title": "bitcointalk",
   "id": "jid1-BaruZpk1QcwY1Q",
-  "description": "a basic add-on",
+  "description": "Sync posts, subscribed threads, ignored users, etc.; no personal information (such as your PMs) is accessible to this extension.",
   "author": "",
   "license": "MPL 2.0",
-  "version": "0.1"
+  "version": "1.3"
 }
