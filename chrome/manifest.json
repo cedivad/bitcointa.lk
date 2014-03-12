@@ -4,7 +4,6 @@
   "name": "Bitcointa.lk",
   "description": "Sync posts, subscribed threads, ignored users, etc.; no personal information (such as your PMs) is accessible to this extension.",
   "version": "1.3",
-  "key": "bjblmgnciihnnakeaadddcdlklhniljk",
 
   "permissions": [
     "cookies",
