@@ -18,7 +18,7 @@
     },
     {
       "matches": ["https://bitcointa.lk/*"],
-      "js": ["jquery.js", "check_unread_pm.js"]
+      "js": ["jquery.js", "global.js"]
     },
     {
       "matches": ["https://bitcointa.lk/pages/browser-extension/"],

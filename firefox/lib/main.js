@@ -7,7 +7,7 @@ var tmr = require('sdk/timers');
 pageMod.PageMod({
     include: "*.bitcointa.lk",
     contentScriptFile: [data.url("jquery.js"),
-        data.url("check_unread_pm.js"),
+        data.url("global.js"),
         data.url("initialize_quickreply.js"),
         data.url("import_actions.js"),
         data.url("initialize_newreply.js"),
