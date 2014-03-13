@@ -102,9 +102,9 @@ function get_auth(data) {
         if(res && typeof res[1] !== 'undefined' && res[1].length > 5)
             run_action(data, res[1]);
         else
-            is_running = false;
+            setTimeout( function() { is_running = false; }, 60000);
     }).fail(function() {
-        is_running = false;
+        setTimeout( function() { is_running = false; }, 10000);
     });
 }
 
@@ -270,10 +270,12 @@ function report_status(id, status)
     $.post( "https://bitcointa.lk/sync-action/report", 
         {'id': id, 'status': status, '_xfToken': JSON.parse(localStorage['csrf'])}, 
         function( data ) {
-            if(data != false)
+            if(data == false)
+                setTimeout( function() { is_running = false; }, 10000);
+            else
                 is_running = false;
     }, 'json').fail(function() {
-        is_running = false;
+        setTimeout( function() { is_running = false; }, 10000);
     });
 }
 

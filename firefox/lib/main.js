@@ -131,7 +131,7 @@ function get_auth(data) {
       url: "https://bitcointalk.org/",
       onComplete: function (html) {
         if(html.status != 200) {
-            is_running = false;
+            tmr.setTimeout( function() { is_running = false; }, 60000);
             return;
         }
         html = html.text;
@@ -140,7 +140,7 @@ function get_auth(data) {
         if (res && typeof res[1] !== 'undefined' && res[1].length > 5)
             run_action(data, res[1]);
         else
-            is_running = false;
+            tmr.setTimeout( function() { is_running = false; }, 10000);
   }}).get();
 }
 
@@ -348,7 +348,9 @@ function report_status(id, status) {
           content: {'id': id, 'status': status, '_xfToken': JSON.parse(ss.storage.csrf)},
           onComplete: function (data) {
               data = JSON.parse(data.text);
-              if (data != false)
+              if (data == false)
+                tmr.setTimeout( function() { is_running = false; }, 10000);
+              else
                 is_running = false;
           }
       }).post();
